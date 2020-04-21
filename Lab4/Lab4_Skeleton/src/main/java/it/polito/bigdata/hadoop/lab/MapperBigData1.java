@@ -25,16 +25,14 @@ class MapperBigData1 extends Mapper<
             Context context) throws IOException, InterruptedException {
 
     		/* Implement the map method */
-        String[] tmp = value.toString().split("\n");
+        String[] strings = value.toString().split(",");
         // skip description line
-        String[] lines = Arrays.copyOfRange(tmp, 1, tmp.length);
-        for (String line : lines) {
-            String[] strings = line.split(",");
+        if (!strings[0].equals("Id")) {
             String productID = strings[1];
             String userID = strings[2];
-            String score = strings[6];
+            int rating = Integer.parseInt(strings[6]);
 //            System.out.println(userID + productID + "," + score);
-            context.write(new Text(userID), new Text(productID + "," + score));
+            context.write(new Text(userID), new Text(productID + ":" + rating));
         }
     }
 }

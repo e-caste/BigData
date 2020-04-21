@@ -3,10 +3,7 @@ package it.polito.bigdata.hadoop.lab;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.FloatWritable;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.KeyValueTextInputFormat;
@@ -81,7 +78,7 @@ public class DriverBigData extends Configured implements Tool {
 
 		// Set reduce output key and value classes
 		job.setOutputKeyClass(Text.class);  // user
-		job.setOutputValueClass(Text.class);  // product + rating (normalized)
+		job.setOutputValueClass(DoubleWritable.class);  // rating (normalized)
 
 		// Set number of reducers
 		job.setNumReduceTasks(numberOfReducersJob1);
@@ -92,7 +89,7 @@ public class DriverBigData extends Configured implements Tool {
 			Job job2 = Job.getInstance(conf);
 
 			// Assign a name to the second job
-			job2.setJobName("Lab#3 - Ex.1 - step 2");
+			job2.setJobName("Lab#4 - Ex.1 - step 2");
 
 			/* */
 			// Change the following part of the code
@@ -111,7 +108,7 @@ public class DriverBigData extends Configured implements Tool {
 			job2.setJarByClass(DriverBigData.class);
 
 			// Set job input format
-			job2.setInputFormatClass(TextInputFormat.class);
+			job2.setInputFormatClass(KeyValueTextInputFormat.class);
 
 			// Set job output format
 			job2.setOutputFormatClass(TextOutputFormat.class);
@@ -121,14 +118,14 @@ public class DriverBigData extends Configured implements Tool {
 
 			// Set map output key and value classes
 			job2.setMapOutputKeyClass(Text.class);  // product
-			job2.setMapOutputValueClass(FloatWritable.class);  // rating
+			job2.setMapOutputValueClass(DoubleWritable.class);  // rating
 
 			// Set reduce class
 			job2.setReducerClass(ReducerBigData2.class);
 
 			// Set reduce output key and value classes
 			job2.setOutputKeyClass(Text.class);  // product
-			job2.setOutputValueClass(FloatWritable.class);  // ratings mean
+			job2.setOutputValueClass(DoubleWritable.class);  // ratings mean
 
 			// Set the number of reducers of the second job 
 			numberOfReducersJob2 = 1;
