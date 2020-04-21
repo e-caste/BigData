@@ -4,7 +4,7 @@ import org.apache.spark.api.java.*;
 import org.apache.spark.SparkConf;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-	
+
 public class SparkDriver {
 	
 	public static void main(String[] args) {
@@ -34,17 +34,14 @@ public class SparkDriver {
 		// (i.e, one pair "word\tfreq")  
 		JavaRDD<String> wordFreqRDD = sc.textFile(inputPath);
 
-		/*
-		 * Task 1
-		 .......
-		 .......
-		*/
-		
-		/*
-		 * Task 2
-		 .......
-		 .......
-		 */
+		// Task 1
+		System.out.println("Total number of lines: " + wordFreqRDD.count());
+		JavaRDD<String> wordFreqPrefixRDD = wordFreqRDD.filter(x -> x.startsWith(prefix));
+		System.out.println("Number of lines beginning with prefix " + prefix + ": " + wordFreqPrefixRDD.count());
+		long maxFreq = wordFreqPrefixRDD.map(x -> Integer.parseInt(x.split("\t")[1])).top(1).get(0);
+		System.out.println("Maximum frequency of top used word beginning with prefix " + prefix + ": " + maxFreq);
+
+		// Task 2
 
 		// Close the Spark context
 		sc.close();
