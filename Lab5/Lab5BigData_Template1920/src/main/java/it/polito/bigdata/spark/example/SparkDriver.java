@@ -24,7 +24,7 @@ public class SparkDriver {
 
 	
 		// Create a configuration object and set the name of the application
-		SparkConf conf=new SparkConf().setAppName("Spark Lab #5");
+		SparkConf conf=new SparkConf().setAppName("Spark Lab #5").setMaster("local");
 		
 		// Use the following command to create the SparkConf object if you want to run
 		// your application inside Eclipse.
