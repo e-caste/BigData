@@ -42,6 +42,8 @@ public class SparkDriver {
 		System.out.println("Maximum frequency of top used word beginning with prefix " + prefix + ": " + maxFreq);
 
 		// Task 2
+		JavaRDD<String> wordFreqPrefixTop80RDD = wordFreqPrefixRDD.filter(x -> Integer.parseInt(x.split("\t")[1]) >= 0.8 * maxFreq);
+		wordFreqPrefixTop80RDD.map(x -> x.split("\t")[0]).saveAsTextFile(outputPath);
 
 		// Close the Spark context
 		sc.close();
