@@ -12,19 +12,13 @@ public class SparkDriver {
 		// The following two lines are used to switch off some verbose log messages
 		Logger.getLogger("org").setLevel(Level.OFF);
 		Logger.getLogger("akka").setLevel(Level.OFF);
-
-
-		String inputPath;
-		String outputPath;
-		String prefix;
 		
-		inputPath=args[0];
-		outputPath=args[1];
-		prefix=args[2];
-
+		String inputPath = args[0];
+		String outputPath = args[1];
+		String prefix = args[2];
 	
 		// Create a configuration object and set the name of the application
-		SparkConf conf=new SparkConf().setAppName("Spark Lab #5").setMaster("local");
+		SparkConf conf = new SparkConf().setAppName("Spark Lab #5").setMaster("local");
 		
 		// Use the following command to create the SparkConf object if you want to run
 		// your application inside Eclipse.
